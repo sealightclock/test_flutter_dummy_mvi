@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import '../../domain/entity/my_string_entity.dart';
+import 'package:test_flutter_dummy_mvi/domain/entity/my_string_entity.dart';
 
 class MyStringBackendServerRepository {
   Future<MyStringEntity> fetchFromServer() async {

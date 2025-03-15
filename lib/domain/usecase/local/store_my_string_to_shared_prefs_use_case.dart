@@ -1,4 +1,4 @@
-import '../../../data/local/my_string_shared_prefs_repository.dart';
+import 'package:test_flutter_dummy_mvi/data/local/my_string_shared_prefs_repository.dart';
 
 class StoreMyStringToSharedPrefsUseCase {
   final MyStringSharedPrefsRepository repository;

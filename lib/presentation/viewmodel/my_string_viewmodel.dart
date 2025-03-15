@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:test_flutter_dummy_mvi/domain/entity/my_string_entity.dart';
 import 'package:test_flutter_dummy_mvi/domain/usecase/local/get_my_string_from_shared_prefs_use_case.dart';
 import 'package:test_flutter_dummy_mvi/domain/usecase/local/store_my_string_to_shared_prefs_use_case.dart';
 import 'package:test_flutter_dummy_mvi/domain/usecase/remote/get_my_string_from_backend_server_use_case.dart';
-import 'package:test_flutter_dummy_mvi/domain/entity/my_string_entity.dart';
 import 'package:test_flutter_dummy_mvi/presentation/intent/my_string_intent.dart';
 
 class MyStringViewModel with ChangeNotifier {
