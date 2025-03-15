@@ -8,6 +8,8 @@ import '../intent/my_string_intent.dart';
 import '../viewmodel/my_string_viewmodel.dart';
 
 class MyStringHomeScreen extends StatefulWidget {
+  const MyStringHomeScreen({super.key}); // Fix: Added key parameter
+
   @override
   _MyStringHomeScreenState createState() => _MyStringHomeScreenState();
 }

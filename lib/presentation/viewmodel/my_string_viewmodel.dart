@@ -12,7 +12,7 @@ class MyStringViewModel with ChangeNotifier {
   final StoreMyStringToSharedPrefsUseCase storeLocalUseCase;
   final GetMyStringFromBackendServerUseCase getRemoteUseCase;
 
-  String myString = '';
+  String myString = 'Default Value from ViewModel';
   bool isLoading = false;
 
   MyStringViewModel({
