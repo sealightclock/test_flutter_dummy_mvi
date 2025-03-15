@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import '../../entity/my_string_entity.dart';
+import '../../domain/entity/my_string_entity.dart';
 
 class MyStringBackendServerRepository {
   Future<MyStringEntity> fetchFromServer() async {
