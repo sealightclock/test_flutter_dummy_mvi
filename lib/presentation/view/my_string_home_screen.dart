@@ -57,7 +57,9 @@ class MyStringHomeScreenState extends State<MyStringHomeScreen> {
             ),
             ElevatedButton(
               onPressed: () {
-                viewModel.handleIntent(UpdateFromUserIntent(_controller.text));
+                setState(() {
+                  viewModel.handleIntent(UpdateFromUserIntent(_controller.text));
+                });
               },
               child: const Text('Update from User'),
             ),
