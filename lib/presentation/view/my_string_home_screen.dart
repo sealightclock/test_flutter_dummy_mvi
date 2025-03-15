@@ -11,10 +11,10 @@ class MyStringHomeScreen extends StatefulWidget {
   const MyStringHomeScreen({super.key}); // Fix: Added key parameter
 
   @override
-  _MyStringHomeScreenState createState() => _MyStringHomeScreenState();
+  MyStringHomeScreenState createState() => MyStringHomeScreenState();
 }
 
-class _MyStringHomeScreenState extends State<MyStringHomeScreen> {
+class MyStringHomeScreenState extends State<MyStringHomeScreen> {
   late MyStringViewModel viewModel;
   late TextEditingController _controller;
   bool _isDataLoaded = false; // ✅ Ensures UI updates after data loads
