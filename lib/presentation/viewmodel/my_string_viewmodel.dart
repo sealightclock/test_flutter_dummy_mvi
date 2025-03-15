@@ -1,42 +1,43 @@
-import 'package:flutter/material.dart';
+
+import 'package:flutter/cupertino.dart';
+
+import '../../domain/entity/my_string_entity.dart';
 import '../../domain/usecase/local/get_my_string_from_shared_prefs_use_case.dart';
 import '../../domain/usecase/local/store_my_string_to_shared_prefs_use_case.dart';
 import '../../domain/usecase/remote/get_my_string_from_backend_server_use_case.dart';
+import '../intent/my_string_intent.dart';
 
-class MyStringViewModel extends ChangeNotifier {
-  final GetMyStringFromSharedPrefsUseCase getMyStringFromSharedPrefsUseCase;
-  final StoreMyStringToSharedPrefsUseCase storeMyStringToSharedPrefsUseCase;
-  final GetMyStringFromBackendServerUseCase getMyStringFromBackendServerUseCase;
+class MyStringViewModel with ChangeNotifier {
+  final GetMyStringFromSharedPrefsUseCase getLocalUseCase;
+  final StoreMyStringToSharedPrefsUseCase storeLocalUseCase;
+  final GetMyStringFromBackendServerUseCase getRemoteUseCase;
 
-  MyStringViewModel(
-      this.getMyStringFromSharedPrefsUseCase,
-      this.storeMyStringToSharedPrefsUseCase,
-      this.getMyStringFromBackendServerUseCase,
-      ) {
-    loadMyString();
-  }
+  String myString = '';
+  bool isLoading = false;
 
-  String _myString = '';
-  TextEditingController textController = TextEditingController();
+  MyStringViewModel({
+    required this.getLocalUseCase,
+    required this.storeLocalUseCase,
+    required this.getRemoteUseCase,
+  });
 
-  String get myString => _myString;
-
-  Future<void> loadMyString() async {
-    _myString = await getMyStringFromSharedPrefsUseCase.execute();
-    textController.text = _myString;
+  Future<void> handleIntent(MyStringIntent intent) async {
+    if (intent is UpdateFromUserIntent) {
+      myString = intent.newValue;
+      await storeLocalUseCase.execute(myString);
+    } else if (intent is UpdateFromServerIntent) {
+      isLoading = true;
+      notifyListeners();
+      MyStringEntity newValue = (await getRemoteUseCase.execute());
+      myString = newValue.value;
+      await storeLocalUseCase.execute(myString);
+      isLoading = false;
+    }
     notifyListeners();
   }
 
-  Future<void> updateFromUser() async {
-    _myString = textController.text;
-    await storeMyStringToSharedPrefsUseCase.execute(_myString);
-    notifyListeners();
-  }
-
-  Future<void> updateFromServer() async {
-    _myString = await getMyStringFromBackendServerUseCase.execute();
-    textController.text = _myString;
-    await storeMyStringToSharedPrefsUseCase.execute(_myString);
+  Future<void> loadInitialValue() async {
+    myString = (await getLocalUseCase.execute()).value;
     notifyListeners();
   }
 }

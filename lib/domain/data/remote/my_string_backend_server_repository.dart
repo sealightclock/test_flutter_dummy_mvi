@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import '../../entity/my_string_entity.dart';
+
 class MyStringBackendServerRepository {
-  Future<String> getMyStringFromServer() async {
+  Future<MyStringEntity> fetchFromServer() async {
     await Future.delayed(Duration(seconds: 2));
-    return 'Server Data: ${DateTime.now()}';
+    return MyStringEntity("Server String: ${DateTime.now()}");
   }
 }

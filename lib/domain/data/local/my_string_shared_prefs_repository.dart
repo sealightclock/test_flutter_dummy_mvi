@@ -1,15 +1,15 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class MyStringSharedPrefsRepository {
-  static const String key = 'my_string';
+import '../../entity/my_string_entity.dart';
 
-  Future<String> getMyString() async {
+class MyStringSharedPrefsRepository {
+  Future<MyStringEntity> getMyString() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(key) ?? '';
+    return MyStringEntity(prefs.getString('my_string') ?? '');
   }
 
   Future<void> storeMyString(String value) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(key, value);
+    await prefs.setString('my_string', value);
   }
 }
