@@ -8,7 +8,7 @@ import 'package:test_flutter_dummy_mvi/presentation/intent/my_string_intent.dart
 import 'package:test_flutter_dummy_mvi/presentation/viewmodel/my_string_viewmodel.dart';
 
 class MyStringHomeScreen extends StatefulWidget {
-  const MyStringHomeScreen({super.key}); // Fix: Added key parameter
+  const MyStringHomeScreen({super.key});
 
   @override
   MyStringHomeScreenState createState() => MyStringHomeScreenState();
@@ -65,7 +65,11 @@ class MyStringHomeScreenState extends State<MyStringHomeScreen> {
             ),
             ElevatedButton(
               onPressed: () {
-                viewModel.handleIntent(UpdateFromServerIntent());
+                setState(() {
+                  viewModel.handleIntent(UpdateFromServerIntent()).then((_) {
+                    setState(() {});
+                  });
+                });
               },
               child: viewModel.isLoading
                   ? const CircularProgressIndicator()
