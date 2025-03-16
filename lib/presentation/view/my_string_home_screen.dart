@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:test_flutter_dummy_mvi/presentation/intent/my_string_intent.dart';
+import 'package:test_flutter_dummy_mvi/presentation/viewmodel/my_string_viewmodel.dart';
 import 'package:test_flutter_dummy_mvi/data/local/my_string_shared_prefs_repository.dart';
 import 'package:test_flutter_dummy_mvi/data/remote/my_string_backend_server_repository.dart';
 import 'package:test_flutter_dummy_mvi/domain/usecase/local/get_my_string_from_shared_prefs_use_case.dart';
 import 'package:test_flutter_dummy_mvi/domain/usecase/local/store_my_string_to_shared_prefs_use_case.dart';
 import 'package:test_flutter_dummy_mvi/domain/usecase/remote/get_my_string_from_backend_server_use_case.dart';
-import 'package:test_flutter_dummy_mvi/presentation/intent/my_string_intent.dart';
-import 'package:test_flutter_dummy_mvi/presentation/viewmodel/my_string_viewmodel.dart';
 
 class MyStringHomeScreen extends StatefulWidget {
   const MyStringHomeScreen({super.key});
@@ -37,7 +37,13 @@ class MyStringHomeScreenState extends State<MyStringHomeScreen> {
     viewModel.loadInitialValue().then((_) {
       setState(() {
         _isDataLoaded = true;
-        _controller.text = viewModel.myString; // ✅ Pre-fill text field with stored value
+        // Keep the user-entered value unchanged
+        if (_controller.text.isEmpty) {
+          // Keep the user-entered value unchanged during app launch or rotation
+          if (_controller.text.isEmpty) {
+            _controller.text = viewModel.myString;
+          }
+        } // ✅ Pre-fill text field with stored value
       });
     });
   }
