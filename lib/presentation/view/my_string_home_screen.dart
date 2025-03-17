@@ -37,13 +37,8 @@ class MyStringHomeScreenState extends State<MyStringHomeScreen> {
     viewModel.loadInitialValue().then((_) {
       setState(() {
         _isDataLoaded = true;
-        // Keep the user-entered value unchanged
-        if (_controller.text.isEmpty) {
-          // Keep the user-entered value unchanged during app launch or rotation
-          if (_controller.text.isEmpty) {
-            _controller.text = viewModel.myString;
-          }
-        } // ✅ Pre-fill text field with stored value
+        // Clear controller text for immediate use:
+        _controller.clear();
       });
     });
   }
@@ -65,6 +60,8 @@ class MyStringHomeScreenState extends State<MyStringHomeScreen> {
               onPressed: () {
                 setState(() {
                   viewModel.handleIntent(UpdateFromUserIntent(_controller.text));
+                  // Clear controller text for next use:
+                  _controller.clear();
                 });
               },
               child: const Text('Update from User'),
