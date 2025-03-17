@@ -8,7 +8,8 @@ import 'package:test_flutter_dummy_mvi/domain/usecase/local/store_my_string_to_s
 import 'package:test_flutter_dummy_mvi/domain/usecase/remote/get_my_string_from_backend_server_use_case.dart';
 
 class MyStringHomeScreen extends StatefulWidget {
-  const MyStringHomeScreen({super.key});
+  const MyStringHomeScreen({super.key}); // Fix: Added key parameter to avoid
+  // a warning about a named 'key' parameter
 
   @override
   MyStringHomeScreenState createState() => MyStringHomeScreenState();
@@ -74,7 +75,7 @@ class MyStringHomeScreenState extends State<MyStringHomeScreen> {
                   });
                 });
               },
-              child: viewModel.isLoading
+              child: viewModel.isLoadingDataFromRemoteServer
                   ? const CircularProgressIndicator()
                   : const Text('Update from Server'),
             ),

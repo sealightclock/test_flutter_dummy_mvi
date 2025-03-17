@@ -6,7 +6,9 @@ class GetMyStringFromBackendServerUseCase {
 
   GetMyStringFromBackendServerUseCase({required this.repository});
 
+  // execute() is commonly used in Use Cases to execute the use case.
   Future<MyStringEntity> execute() async {
+    // Do not use "await" if we are not modifying the value:
     return repository.fetchFromServer();
   }
 }

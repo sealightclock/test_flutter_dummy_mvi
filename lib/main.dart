@@ -7,7 +7,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key}); // Fix: Added key parameter
+  const MyApp({super.key}); // Fix: Added key parameter to avoid
+  // a warning about a named 'key' parameter
 
   @override
   Widget build(BuildContext context) {

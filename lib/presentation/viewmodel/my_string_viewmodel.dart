@@ -6,32 +6,40 @@ import 'package:test_flutter_dummy_mvi/domain/usecase/remote/get_my_string_from_
 import 'package:test_flutter_dummy_mvi/presentation/intent/my_string_intent.dart';
 
 class MyStringViewModel with ChangeNotifier {
+  // A ViewModel should deal with only Use Cases, not their Repositories.
   final GetMyStringFromSharedPrefsUseCase getLocalUseCase;
   final StoreMyStringToSharedPrefsUseCase storeLocalUseCase;
   final GetMyStringFromBackendServerUseCase getRemoteUseCase;
 
+  // This is the single data to be handled by the ViewModel.
   String myString = 'Default Value from ViewModel'; // Kept for debugging
-  bool isLoading = false;
-  bool isLoadingData = true; // ✅ Added flag for UI synchronization
 
+  // Flags for UI synchronization:
+  bool isLoadingDataFromRemoteServer = false;
+
+  // Constructor:
   MyStringViewModel({
     required this.getLocalUseCase,
     required this.storeLocalUseCase,
     required this.getRemoteUseCase,
   });
 
+  // This function handles intents sent from the View:
   Future<void> handleIntent(MyStringIntent intent) async {
     if (intent is UpdateFromUserIntent) {
+      // This will trigger a widget rebuild due to a mechanism ...
       myString = intent.newValue;
+      // Update local storage:
       await storeLocalUseCase.execute(myString);
+      // Recommended: notify other listeners:
       notifyListeners();
     } else if (intent is UpdateFromServerIntent) {
-      isLoading = true;
+      isLoadingDataFromRemoteServer = true;
       notifyListeners();
       MyStringEntity newValue = await getRemoteUseCase.execute();
       myString = newValue.value;
       await storeLocalUseCase.execute(myString);
-      isLoading = false;
+      isLoadingDataFromRemoteServer = false;
       notifyListeners();
     }
   }
@@ -39,7 +47,6 @@ class MyStringViewModel with ChangeNotifier {
   Future<void> loadInitialValue() async {
     MyStringEntity storedEntity = await getLocalUseCase.execute();
     myString = storedEntity.value;
-    isLoadingData = false; // ✅ Ensure this is updated correctly
-    notifyListeners(); // ✅ This will trigger a UI update
+    notifyListeners();
   }
 }
