@@ -80,7 +80,7 @@ class MyStringHomeScreenState extends State<MyStringHomeScreen> {
                   : const Text('Update from Server'),
             ),
             const SizedBox(height: 20),
-            Text('Stored Value: ${viewModel.myString}', style: const TextStyle(fontSize: 18)),
+            Text('Current Value: ${viewModel.myString}', style: const TextStyle(fontSize: 18)),
           ],
         )
             : const Center(child: CircularProgressIndicator()), // ✅ Show loading only initially

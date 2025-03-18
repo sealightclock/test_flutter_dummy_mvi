@@ -12,6 +12,8 @@ class MyStringViewModel with ChangeNotifier {
   final GetMyStringFromBackendServerUseCase getRemoteUseCase;
 
   // This is the single data to be handled by the ViewModel.
+  // In MVI, data cannot be directly modified by outside code. They can be modified indirectly via Intent.
+  // So we only need "myStrong" but not "_myString".
   String myString = 'Default Value from ViewModel'; // Kept for debugging
 
   // Flags for UI synchronization:
@@ -35,7 +37,7 @@ class MyStringViewModel with ChangeNotifier {
       notifyListeners();
     } else if (intent is UpdateFromServerIntent) {
       isLoadingDataFromRemoteServer = true;
-      notifyListeners();
+      notifyListeners(); // This is needed so that the View can display the circular progress indicator.
       MyStringEntity newValue = await getRemoteUseCase.execute();
       myString = newValue.value;
       await storeLocalUseCase.execute(myString);
