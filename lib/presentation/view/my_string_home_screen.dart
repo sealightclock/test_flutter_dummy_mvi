@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:test_flutter_dummy_mvi/presentation/intent/my_string_intent.dart';
-import 'package:test_flutter_dummy_mvi/presentation/viewmodel/my_string_viewmodel.dart';
 import 'package:test_flutter_dummy_mvi/data/local/my_string_shared_prefs_repository.dart';
 import 'package:test_flutter_dummy_mvi/data/remote/my_string_backend_server_repository.dart';
 import 'package:test_flutter_dummy_mvi/domain/usecase/local/get_my_string_from_shared_prefs_use_case.dart';
 import 'package:test_flutter_dummy_mvi/domain/usecase/local/store_my_string_to_shared_prefs_use_case.dart';
 import 'package:test_flutter_dummy_mvi/domain/usecase/remote/get_my_string_from_backend_server_use_case.dart';
+import 'package:test_flutter_dummy_mvi/presentation/intent/my_string_intent.dart';
+import 'package:test_flutter_dummy_mvi/presentation/viewmodel/my_string_viewmodel.dart';
 
 class MyStringHomeScreen extends StatefulWidget {
   const MyStringHomeScreen({super.key}); // Fix: Added key parameter to avoid
@@ -18,7 +18,7 @@ class MyStringHomeScreen extends StatefulWidget {
 class MyStringHomeScreenState extends State<MyStringHomeScreen> {
   late MyStringViewModel viewModel;
   late TextEditingController _controller;
-  bool _isDataLoaded = false; // ✅ Ensures UI updates after data loads
+  bool _isDataLoaded = false; // Ensures UI updates after data loads
 
   @override
   void initState() {
@@ -34,7 +34,7 @@ class MyStringHomeScreenState extends State<MyStringHomeScreen> {
 
     _controller = TextEditingController();
 
-    // ✅ Ensure UI updates properly after data loads
+    // Ensure UI updates properly after data loads
     viewModel.loadInitialValue().then((_) {
       setState(() {
         _isDataLoaded = true;
@@ -84,7 +84,7 @@ class MyStringHomeScreenState extends State<MyStringHomeScreen> {
               Text('Current Value: ${viewModel.myString}', style: const TextStyle(fontSize: 18)),
             ],
           )
-              : const Center(child: CircularProgressIndicator()), // ✅ Show loading only initially
+              : const Center(child: CircularProgressIndicator()), // Show loading only initially
         ),
       ),
     );

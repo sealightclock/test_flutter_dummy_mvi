@@ -5,6 +5,8 @@ import 'package:test_flutter_dummy_mvi/domain/usecase/local/store_my_string_to_s
 import 'package:test_flutter_dummy_mvi/domain/usecase/remote/get_my_string_from_backend_server_use_case.dart';
 import 'package:test_flutter_dummy_mvi/presentation/intent/my_string_intent.dart';
 
+/// ViewModel handling UI state and business logic.
+/// Notifies listeners when data changes.
 class MyStringViewModel with ChangeNotifier {
   // A ViewModel should deal with only Use Cases, not their Repositories.
   final GetMyStringFromSharedPrefsUseCase getLocalUseCase;
@@ -26,7 +28,7 @@ class MyStringViewModel with ChangeNotifier {
     required this.getRemoteUseCase,
   });
 
-  // This function handles intents sent from the View:
+  /// Handles user intents and updates state accordingly.
   Future<void> handleIntent(MyStringIntent intent) async {
     if (intent is UpdateFromUserIntent) {
       // This will trigger a widget rebuild due to a mechanism ...
@@ -37,15 +39,21 @@ class MyStringViewModel with ChangeNotifier {
       notifyListeners();
     } else if (intent is UpdateFromServerIntent) {
       isLoadingDataFromRemoteServer = true;
-      notifyListeners(); // This is needed so that the View can display the circular progress indicator.
-      MyStringEntity newValue = await getRemoteUseCase.execute();
-      myString = newValue.value;
-      await storeLocalUseCase.execute(myString);
-      isLoadingDataFromRemoteServer = false;
       notifyListeners();
+      try {
+        MyStringEntity newValue = await getRemoteUseCase.execute();
+        myString = newValue.value;
+        await storeLocalUseCase.execute(myString);
+      } catch (e) {
+        myString = "Error: Unable to fetch data";
+      } finally {
+        isLoadingDataFromRemoteServer = false;
+        notifyListeners();
+      }
     }
   }
 
+  /// Loads the initially stored value from SharedPreferences.
   Future<void> loadInitialValue() async {
     MyStringEntity storedEntity = await getLocalUseCase.execute();
     myString = storedEntity.value;

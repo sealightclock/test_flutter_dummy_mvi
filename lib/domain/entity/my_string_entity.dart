@@ -3,8 +3,10 @@
 // "final" to make it immutable.
 // "const" to make it compile-time constant.
 
+/// Immutable entity class representing a string value.
 class MyStringEntity {
   final String value;
 
   const MyStringEntity(this.value);
 }
+

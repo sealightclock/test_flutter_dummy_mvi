@@ -1,20 +1,32 @@
 import 'package:dio/dio.dart';
 
+import '../../util/my_string_exception.dart';
+
+/// Handles API calls to the backend server using Dio.
+/// Includes timeout settings for reliability.
 class MyStringBackendServerDioApi {
   static const String backendServerUrl = 'http://example.com';
 
-  final Dio _dio = Dio();
+  final Dio _dio = Dio(
+    BaseOptions(
+      connectTimeout: Duration(seconds: 5),
+      receiveTimeout: Duration(seconds: 5),
+    ),
+  );
 
+  /// Fetches content from the backend server.
+  /// Throws a `MyStringException` if the request fails.
   Future<String> fetchContent() async {
     try {
       final response = await _dio.get(backendServerUrl);
+
       if (response.statusCode == 200) {
         return response.data.toString();
       } else {
-        throw Exception('Failed to fetch content: ${response.statusCode}');
+        throw MyStringException('Failed to fetch content: ${response.statusCode}');
       }
     } catch (e) {
-      throw Exception('Error fetching content: $e');
+      throw MyStringException('Error fetching content: $e');
     }
   }
 }
