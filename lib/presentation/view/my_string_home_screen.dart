@@ -48,42 +48,44 @@ class MyStringHomeScreenState extends State<MyStringHomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('MVI Flutter App')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: _isDataLoaded
-            ? Column(
-          children: [
-            TextField(
-              controller: _controller,
-              decoration: const InputDecoration(labelText: 'Enter value'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  viewModel.handleIntent(UpdateFromUserIntent(_controller.text));
-                  // Clear controller text for next use:
-                  _controller.clear();
-                });
-              },
-              child: const Text('Update from User'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  viewModel.handleIntent(UpdateFromServerIntent()).then((_) {
-                    setState(() {});
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: _isDataLoaded
+              ? Column(
+            children: [
+              TextField(
+                controller: _controller,
+                decoration: const InputDecoration(labelText: 'Enter value'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    viewModel.handleIntent(UpdateFromUserIntent(_controller.text));
+                    // Clear controller text for next use:
+                    _controller.clear();
                   });
-                });
-              },
-              child: viewModel.isLoadingDataFromRemoteServer
-                  ? const CircularProgressIndicator()
-                  : const Text('Update from Server'),
-            ),
-            const SizedBox(height: 20),
-            Text('Current Value: ${viewModel.myString}', style: const TextStyle(fontSize: 18)),
-          ],
-        )
-            : const Center(child: CircularProgressIndicator()), // ✅ Show loading only initially
+                },
+                child: const Text('Update from User'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    viewModel.handleIntent(UpdateFromServerIntent()).then((_) {
+                      setState(() {});
+                    });
+                  });
+                },
+                child: viewModel.isLoadingDataFromRemoteServer
+                    ? const CircularProgressIndicator()
+                    : const Text('Update from Server'),
+              ),
+              const SizedBox(height: 20),
+              Text('Current Value: ${viewModel.myString}', style: const TextStyle(fontSize: 18)),
+            ],
+          )
+              : const Center(child: CircularProgressIndicator()), // ✅ Show loading only initially
+        ),
       ),
     );
   }
