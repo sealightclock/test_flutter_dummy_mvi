@@ -4,3 +4,8 @@ abstract class MyStringLocalRepository {
   Future<MyStringEntity> getMyString();
   Future<void> storeMyString(MyStringEntity value);
 }
+
+enum LocalStore {
+  sharedPrefs,
+  hive,
+}

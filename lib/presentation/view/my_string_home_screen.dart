@@ -7,6 +7,8 @@ import 'package:test_flutter_dummy_mvi/domain/usecase/remote/get_my_string_from_
 import 'package:test_flutter_dummy_mvi/presentation/intent/my_string_intent.dart';
 import 'package:test_flutter_dummy_mvi/presentation/viewmodel/my_string_viewmodel.dart';
 
+import '../../data/local/my_string_hive_repository.dart';
+
 class MyStringHomeScreen extends StatefulWidget {
   const MyStringHomeScreen({super.key}); // Fix: Added key parameter to avoid
   // a warning about a named 'key' parameter
@@ -23,13 +25,24 @@ class MyStringHomeScreenState extends State<MyStringHomeScreen> {
   @override
   void initState() {
     super.initState();
+
     final sharedPrefsRepository = MyStringSharedPrefsRepository();
     final backendServerRepository = MyStringRemoteDioRepository();
 
     viewModel = MyStringViewModel(
-      getLocalUseCase: GetMyStringFromLocalUseCase(repository: sharedPrefsRepository),
-      storeLocalUseCase: StoreMyStringToLocalUseCase(repository: sharedPrefsRepository),
-      getRemoteUseCase: GetMyStringFromRemoteUseCase(repository: backendServerRepository),
+      getLocalUseCase: GetMyStringFromLocalUseCase(
+        sharedPrefsRepository: sharedPrefsRepository,
+        hiveRepository: MyStringHiveRepository(),
+        storeType: localStoreType,
+      ),
+      storeLocalUseCase: StoreMyStringToLocalUseCase(
+        sharedPrefsRepository: sharedPrefsRepository,
+        hiveRepository: MyStringHiveRepository(),
+        storeType: localStoreType,
+      ),
+      getRemoteUseCase: GetMyStringFromRemoteUseCase(
+        repository: backendServerRepository,
+      ),
     );
 
     _controller = TextEditingController();
