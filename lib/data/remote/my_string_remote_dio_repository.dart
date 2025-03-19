@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:test_flutter_dummy_mvi/domain/entity/my_string_entity.dart';
 
 import '../../util/my_string_exception.dart';
-import 'my_string_backend_server_dio_api.dart';
+import 'my_string_remote_dio_api.dart';
 
 /// Repository for fetching data from the backend server.
 /// Supports switching between real server and mock data.

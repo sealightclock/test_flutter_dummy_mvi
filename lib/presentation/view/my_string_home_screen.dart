@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:test_flutter_dummy_mvi/data/local/my_string_shared_prefs_repository.dart';
-import 'package:test_flutter_dummy_mvi/data/remote/my_string_backend_server_repository.dart';
-import 'package:test_flutter_dummy_mvi/domain/usecase/local/get_my_string_from_shared_prefs_use_case.dart';
-import 'package:test_flutter_dummy_mvi/domain/usecase/local/store_my_string_to_shared_prefs_use_case.dart';
-import 'package:test_flutter_dummy_mvi/domain/usecase/remote/get_my_string_from_backend_server_use_case.dart';
+import 'package:test_flutter_dummy_mvi/data/remote/my_string_remote_dio_repository.dart';
+import 'package:test_flutter_dummy_mvi/domain/usecase/local/get_my_string_from_local_use_case.dart';
+import 'package:test_flutter_dummy_mvi/domain/usecase/local/store_my_string_to_local_use_case.dart';
+import 'package:test_flutter_dummy_mvi/domain/usecase/remote/get_my_string_from_remote_use_case.dart';
 import 'package:test_flutter_dummy_mvi/presentation/intent/my_string_intent.dart';
 import 'package:test_flutter_dummy_mvi/presentation/viewmodel/my_string_viewmodel.dart';
 

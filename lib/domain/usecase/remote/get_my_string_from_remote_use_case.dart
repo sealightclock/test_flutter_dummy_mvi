@@ -1,4 +1,4 @@
-import 'package:test_flutter_dummy_mvi/data/remote/my_string_backend_server_repository.dart';
+import 'package:test_flutter_dummy_mvi/data/remote/my_string_remote_dio_repository.dart';
 import 'package:test_flutter_dummy_mvi/domain/entity/my_string_entity.dart';
 
 /// Use Case: Retrieve the latest string from the backend server.
