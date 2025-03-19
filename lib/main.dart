@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:test_flutter_dummy_mvi/util/my_string_constants.dart';
 
 import 'presentation/view/my_string_home_screen.dart';
 
-void main() {
+Future<void> main() async {
+  // Initialize Hive
+  await Hive.initFlutter();
+  // Open the box before using it
+  await Hive.openBox<String>(hiveBoxName);
+
   runApp(const MyApp());
 }
 

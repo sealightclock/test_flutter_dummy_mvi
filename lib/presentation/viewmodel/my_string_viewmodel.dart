@@ -9,7 +9,7 @@ import 'package:test_flutter_dummy_mvi/presentation/intent/my_string_intent.dart
 import '../../data/local/my_string_local_repository.dart';
 import '../../data/local/my_string_shared_prefs_repository.dart';
 
-final localStoreType = LocalStore.sharedPrefs; // !!! Change this if needed.
+final localStoreType = LocalStore.hive; // !!! Change this if needed.
 
 /// ViewModel handling UI state and business logic.
 /// Notifies listeners when data changes.

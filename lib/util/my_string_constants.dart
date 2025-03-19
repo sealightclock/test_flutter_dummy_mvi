@@ -1,0 +1,1 @@
+const String hiveBoxName = "my_string_box";
