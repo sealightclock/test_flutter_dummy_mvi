@@ -4,7 +4,7 @@ import '../../util/my_string_exception.dart';
 
 /// Handles API calls to the backend server using Dio.
 /// Includes timeout settings for reliability.
-class MyStringBackendServerDioApi {
+class MyStringRemoteDioApi {
   static const String backendServerUrl = 'http://example.com';
 
   final Dio _dio = Dio(

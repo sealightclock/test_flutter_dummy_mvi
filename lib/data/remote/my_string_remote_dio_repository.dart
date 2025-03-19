@@ -7,7 +7,7 @@ import 'my_string_remote_dio_api.dart';
 
 /// Repository for fetching data from the backend server.
 /// Supports switching between real server and mock data.
-class MyStringBackendServerRepository {
+class MyStringRemoteDioRepository {
   static const bool useMock = false; // Toggle to simulate mock data.
 
   /// Fetches data from the server or returns mock data.
@@ -19,7 +19,7 @@ class MyStringBackendServerRepository {
     }
 
     try {
-      String content = await MyStringBackendServerDioApi().fetchContent();
+      String content = await MyStringRemoteDioApi().fetchContent();
       return MyStringEntity("Real Server String: $content");
     } catch (e) {
       throw MyStringException('Server fetch failed: $e');

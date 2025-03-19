@@ -9,9 +9,9 @@ import 'package:test_flutter_dummy_mvi/presentation/intent/my_string_intent.dart
 /// Notifies listeners when data changes.
 class MyStringViewModel with ChangeNotifier {
   // A ViewModel should deal with only Use Cases, not their Repositories.
-  final GetMyStringFromSharedPrefsUseCase getLocalUseCase;
-  final StoreMyStringToSharedPrefsUseCase storeLocalUseCase;
-  final GetMyStringFromBackendServerUseCase getRemoteUseCase;
+  final GetMyStringFromLocalUseCase getLocalUseCase;
+  final StoreMyStringToLocalUseCase storeLocalUseCase;
+  final GetMyStringFromRemoteUseCase getRemoteUseCase;
 
   // This is the single data to be handled by the ViewModel.
   // In MVI, data cannot be directly modified by outside code. They can be modified indirectly via Intent.

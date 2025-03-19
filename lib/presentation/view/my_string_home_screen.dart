@@ -24,12 +24,12 @@ class MyStringHomeScreenState extends State<MyStringHomeScreen> {
   void initState() {
     super.initState();
     final sharedPrefsRepository = MyStringSharedPrefsRepository();
-    final backendServerRepository = MyStringBackendServerRepository();
+    final backendServerRepository = MyStringRemoteDioRepository();
 
     viewModel = MyStringViewModel(
-      getLocalUseCase: GetMyStringFromSharedPrefsUseCase(repository: sharedPrefsRepository),
-      storeLocalUseCase: StoreMyStringToSharedPrefsUseCase(repository: sharedPrefsRepository),
-      getRemoteUseCase: GetMyStringFromBackendServerUseCase(repository: backendServerRepository),
+      getLocalUseCase: GetMyStringFromLocalUseCase(repository: sharedPrefsRepository),
+      storeLocalUseCase: StoreMyStringToLocalUseCase(repository: sharedPrefsRepository),
+      getRemoteUseCase: GetMyStringFromRemoteUseCase(repository: backendServerRepository),
     );
 
     _controller = TextEditingController();

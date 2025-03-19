@@ -3,10 +3,10 @@ import 'package:test_flutter_dummy_mvi/data/local/my_string_shared_prefs_reposit
 import '../../entity/my_string_entity.dart';
 
 /// Use Case: Store a string into SharedPreferences.
-class StoreMyStringToSharedPrefsUseCase {
+class StoreMyStringToLocalUseCase {
   final MyStringSharedPrefsRepository repository;
 
-  StoreMyStringToSharedPrefsUseCase({required this.repository});
+  StoreMyStringToLocalUseCase({required this.repository});
 
   Future<void> execute(MyStringEntity value) async => repository.storeMyString
     (value);
