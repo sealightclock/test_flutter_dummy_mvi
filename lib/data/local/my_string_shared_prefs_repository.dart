@@ -1,9 +1,11 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test_flutter_dummy_mvi/domain/entity/my_string_entity.dart';
 
+import 'my_string_local_repository.dart';
+
 /// Repository to handle local data persistence using SharedPreferences.
 /// Implements a singleton pattern to avoid repeated `getInstance()` calls.
-class MyStringSharedPrefsRepository {
+class MyStringSharedPrefsRepository implements MyStringLocalRepository {
   static SharedPreferences? _prefs;
 
   /// Initializes SharedPreferences once to prevent redundant calls.
@@ -12,6 +14,7 @@ class MyStringSharedPrefsRepository {
   }
 
   /// Retrieves stored string value or assigns a default value if absent.
+  @override
   Future<MyStringEntity> getMyString() async {
     if (_prefs == null) await init();
 
@@ -26,9 +29,10 @@ class MyStringSharedPrefsRepository {
   }
 
   /// Stores a string value into SharedPreferences.
-  Future<void> storeMyString(String value) async {
+  @override
+  Future<void> storeMyString(MyStringEntity value) async {
     if (_prefs == null) await init();
 
-    await _prefs?.setString('my_string', value);
+    await _prefs?.setString('my_string', value.value);
   }
 }

@@ -34,7 +34,7 @@ class MyStringViewModel with ChangeNotifier {
       // This will trigger a widget rebuild due to a mechanism ...
       myString = intent.newValue;
       // Update local storage:
-      await storeLocalUseCase.execute(myString);
+      await storeLocalUseCase.execute(MyStringEntity(myString));
       // Recommended: notify other listeners:
       notifyListeners();
     } else if (intent is UpdateFromServerIntent) {
@@ -43,7 +43,7 @@ class MyStringViewModel with ChangeNotifier {
       try {
         MyStringEntity newValue = await getRemoteUseCase.execute();
         myString = newValue.value;
-        await storeLocalUseCase.execute(myString);
+        await storeLocalUseCase.execute(MyStringEntity(myString));
       } catch (e) {
         myString = "Error: Unable to fetch data";
       } finally {
