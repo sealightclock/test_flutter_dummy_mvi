@@ -9,3 +9,6 @@ enum LocalStore {
   sharedPrefs,
   hive,
 }
+
+// TODO: Change this if needed:
+final storeType = LocalStore.hive;

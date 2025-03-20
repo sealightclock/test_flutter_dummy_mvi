@@ -9,8 +9,6 @@ import 'package:test_flutter_dummy_mvi/presentation/intent/my_string_intent.dart
 import '../../data/local/my_string_local_repository.dart';
 import '../../data/local/my_string_shared_prefs_repository.dart';
 
-final localStoreType = LocalStore.hive; // !!! Change this if needed.
-
 /// ViewModel handling UI state and business logic.
 /// Notifies listeners when data changes.
 class MyStringViewModel with ChangeNotifier {
@@ -18,12 +16,12 @@ class MyStringViewModel with ChangeNotifier {
   GetMyStringFromLocalUseCase getLocalUseCase = GetMyStringFromLocalUseCase(
     sharedPrefsRepository: MyStringSharedPrefsRepository(),
     hiveRepository: MyStringHiveRepository(),
-    storeType: localStoreType,
+    storeType: storeType,
   ) ;
   StoreMyStringToLocalUseCase storeLocalUseCase = StoreMyStringToLocalUseCase(
     sharedPrefsRepository: MyStringSharedPrefsRepository(),
     hiveRepository: MyStringHiveRepository(),
-    storeType: localStoreType,
+    storeType: storeType,
   ) ;
   final GetMyStringFromRemoteUseCase getRemoteUseCase;
 

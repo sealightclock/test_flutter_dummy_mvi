@@ -1,9 +1,9 @@
-import 'package:test_flutter_dummy_mvi/data/remote/my_string_remote_dio_repository.dart';
+import 'package:test_flutter_dummy_mvi/data/remote/my_string_dio_repository.dart';
 import 'package:test_flutter_dummy_mvi/domain/entity/my_string_entity.dart';
 
 /// Use Case: Retrieve the latest string from the backend server.
 class GetMyStringFromRemoteUseCase {
-  final MyStringRemoteDioRepository repository;
+  final MyStringDioRepository repository;
 
   GetMyStringFromRemoteUseCase({required this.repository});
 
