@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:test_flutter_dummy_mvi/data/remote/my_string_dio_data_source.dart';
 import 'package:test_flutter_dummy_mvi/domain/usecase/local/get_my_string_from_local_use_case.dart';
 import 'package:test_flutter_dummy_mvi/domain/usecase/local/store_my_string_to_local_use_case.dart';
 import 'package:test_flutter_dummy_mvi/domain/usecase/remote/get_my_string_from_remote_use_case.dart';
 import 'package:test_flutter_dummy_mvi/presentation/intent/my_string_intent.dart';
 import 'package:test_flutter_dummy_mvi/presentation/viewmodel/my_string_viewmodel.dart';
 
-import '../../data/local/my_string_hive_data_source.dart';
+import '../../data/di/my_string_dependency_injection.dart';
 import '../../data/repository/my_string_repository_impl.dart';
 
 class MyStringHomeScreen extends StatefulWidget {
@@ -26,9 +25,8 @@ class MyStringHomeScreenState extends State<MyStringHomeScreen> {
   void initState() {
     super.initState();
 
-    // TODO: Make a choice between local and remote data source:
-    final localDataSource = MyStringHiveDataSource(); // or SharedPrefs
-    final remoteDataSource = MyStringDioDataSource(); // or Http
+    final localDataSource = createLocalDataSource(storeType);
+    final remoteDataSource = createRemoteDataSource(serverType);
 
     final repository = MyStringRepositoryImpl(
       localDataSource: localDataSource,
