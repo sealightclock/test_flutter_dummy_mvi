@@ -44,7 +44,7 @@ class MyStringViewModel with ChangeNotifier {
         myString = newValue.value;
         await storeLocalUseCase.execute(MyStringEntity(myString));
       } catch (e) {
-        myString = "Error: Unable to fetch data";
+        myString = "MyStringViewModel: Error: Unable to fetch data";
       } finally {
         isLoadingDataFromRemoteServer = false;
         notifyListeners();

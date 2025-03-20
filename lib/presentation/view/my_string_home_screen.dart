@@ -58,7 +58,7 @@ class MyStringHomeScreenState extends State<MyStringHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('MVI Flutter App')),
+      appBar: AppBar(title: const Text('Demo Flutter App with MVI')),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

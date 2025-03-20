@@ -4,6 +4,7 @@ import '../local/my_string_hive_data_source.dart';
 import '../local/my_string_local_data_source.dart';
 import '../local/my_string_shared_prefs_data_source.dart';
 import '../remote/my_string_dio_data_source.dart';
+import '../remote/my_string_http_data_source.dart';
 
 enum LocalStore { sharedPrefs, hive }
 
@@ -23,10 +24,10 @@ MyStringRemoteDataSource createRemoteDataSource(RemoteServer serverType) {
     case RemoteServer.dio:
       return MyStringDioDataSource();
     case RemoteServer.http:
-      return MyStringDioDataSource(); // TODO: Implement MyStringHttpDataSource
+      return MyStringHttpDataSource();
   }
 }
 
-// TODO: Change these values if needed:
+// !!! TODO: Change these values if needed:
 final storeType = LocalStore.hive;
 final serverType = RemoteServer.dio;

@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Test Flutter Dummy MVI',
+      title: 'Demo Flutter App with MVI',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

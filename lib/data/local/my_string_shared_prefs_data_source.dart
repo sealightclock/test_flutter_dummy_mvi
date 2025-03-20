@@ -21,7 +21,7 @@ class MyStringSharedPrefsDataSource implements MyStringLocalDataSource {
     String? storedValue = _prefs?.getString('my_string');
 
     if (storedValue == null) {
-      storedValue = 'Default Value from DataStore'; // Ensure a valid default value.
+      storedValue = 'Default Value from SharedPreferences'; // Ensure a valid default value.
       await _prefs?.setString('my_string', storedValue); // Store default value once.
     }
 

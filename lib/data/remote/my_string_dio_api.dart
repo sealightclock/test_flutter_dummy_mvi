@@ -23,10 +23,11 @@ class MyStringDioApi {
       if (response.statusCode == 200) {
         return response.data.toString();
       } else {
-        throw MyStringException('Failed to fetch content: ${response.statusCode}');
+        throw MyStringException('MyStringDioApi: Failed to fetch content: ${response
+            .statusCode}');
       }
     } catch (e) {
-      throw MyStringException('Error fetching content: $e');
+      throw MyStringException('MyStringDioApi: Error fetching content: $e');
     }
   }
 }
