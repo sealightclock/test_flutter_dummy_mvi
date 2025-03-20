@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:test_flutter_dummy_mvi/data/local/my_string_shared_prefs_repository.dart';
-import 'package:test_flutter_dummy_mvi/data/remote/my_string_dio_repository.dart';
+import 'package:test_flutter_dummy_mvi/data/remote/my_string_dio_data_source.dart';
 import 'package:test_flutter_dummy_mvi/domain/usecase/local/get_my_string_from_local_use_case.dart';
 import 'package:test_flutter_dummy_mvi/domain/usecase/local/store_my_string_to_local_use_case.dart';
 import 'package:test_flutter_dummy_mvi/domain/usecase/remote/get_my_string_from_remote_use_case.dart';
 import 'package:test_flutter_dummy_mvi/presentation/intent/my_string_intent.dart';
 import 'package:test_flutter_dummy_mvi/presentation/viewmodel/my_string_viewmodel.dart';
 
-import '../../data/local/my_string_hive_repository.dart';
-import '../../data/local/my_string_local_repository.dart';
+import '../../data/local/my_string_hive_data_source.dart';
+import '../../data/repository/my_string_repository_impl.dart';
 
 class MyStringHomeScreen extends StatefulWidget {
   const MyStringHomeScreen({super.key}); // Fix: Added key parameter to avoid
@@ -27,24 +26,23 @@ class MyStringHomeScreenState extends State<MyStringHomeScreen> {
   void initState() {
     super.initState();
 
-    final sharedPrefsRepository = MyStringSharedPrefsRepository();
-    final backendServerRepository = MyStringDioRepository();
-    final hiveRepository =  MyStringHiveRepository();
+    // TODO: Make a choice between local and remote data source:
+    final localDataSource = MyStringHiveDataSource(); // or SharedPrefs
+    final remoteDataSource = MyStringDioDataSource(); // or Http
+
+    final repository = MyStringRepositoryImpl(
+      localDataSource: localDataSource,
+      remoteDataSource: remoteDataSource,
+    );
+
+    final getLocalUseCase = GetMyStringFromLocalUseCase(repository);
+    final storeLocalUseCase = StoreMyStringToLocalUseCase(repository);
+    final getRemoteUseCase = GetMyStringFromRemoteUseCase(repository: repository);
 
     viewModel = MyStringViewModel(
-      getLocalUseCase: GetMyStringFromLocalUseCase(
-        sharedPrefsRepository: sharedPrefsRepository,
-        hiveRepository: hiveRepository,
-        storeType: storeType,
-      ),
-      storeLocalUseCase: StoreMyStringToLocalUseCase(
-        sharedPrefsRepository: sharedPrefsRepository,
-        hiveRepository: hiveRepository,
-        storeType: storeType,
-      ),
-      getRemoteUseCase: GetMyStringFromRemoteUseCase(
-        repository: backendServerRepository,
-      ),
+      getLocalUseCase: getLocalUseCase,
+      storeLocalUseCase: storeLocalUseCase,
+      getRemoteUseCase: getRemoteUseCase,
     );
 
     _controller = TextEditingController();

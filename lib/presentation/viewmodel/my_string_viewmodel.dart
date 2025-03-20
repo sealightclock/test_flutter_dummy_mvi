@@ -1,28 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:test_flutter_dummy_mvi/data/local/my_string_hive_repository.dart';
 import 'package:test_flutter_dummy_mvi/domain/entity/my_string_entity.dart';
 import 'package:test_flutter_dummy_mvi/domain/usecase/local/get_my_string_from_local_use_case.dart';
 import 'package:test_flutter_dummy_mvi/domain/usecase/local/store_my_string_to_local_use_case.dart';
 import 'package:test_flutter_dummy_mvi/domain/usecase/remote/get_my_string_from_remote_use_case.dart';
 import 'package:test_flutter_dummy_mvi/presentation/intent/my_string_intent.dart';
 
-import '../../data/local/my_string_local_repository.dart';
-import '../../data/local/my_string_shared_prefs_repository.dart';
-
 /// ViewModel handling UI state and business logic.
 /// Notifies listeners when data changes.
 class MyStringViewModel with ChangeNotifier {
-  // A ViewModel should deal with only Use Cases, not their Repositories.
-  GetMyStringFromLocalUseCase getLocalUseCase = GetMyStringFromLocalUseCase(
-    sharedPrefsRepository: MyStringSharedPrefsRepository(),
-    hiveRepository: MyStringHiveRepository(),
-    storeType: storeType,
-  ) ;
-  StoreMyStringToLocalUseCase storeLocalUseCase = StoreMyStringToLocalUseCase(
-    sharedPrefsRepository: MyStringSharedPrefsRepository(),
-    hiveRepository: MyStringHiveRepository(),
-    storeType: storeType,
-  ) ;
+  final GetMyStringFromLocalUseCase getLocalUseCase;
+  final StoreMyStringToLocalUseCase storeLocalUseCase;
   final GetMyStringFromRemoteUseCase getRemoteUseCase;
 
   // This is the single data to be handled by the ViewModel.

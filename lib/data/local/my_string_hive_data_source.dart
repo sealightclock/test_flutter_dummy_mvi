@@ -1,10 +1,11 @@
 import 'package:hive_flutter/adapters.dart';
 import 'package:test_flutter_dummy_mvi/domain/entity/my_string_entity.dart';
 import 'package:test_flutter_dummy_mvi/util/my_string_constants.dart';
-import 'my_string_local_repository.dart';
+
+import 'my_string_local_data_source.dart';
 
 /// Repository to handle local data persistence using Hive.
-class MyStringHiveRepository implements MyStringLocalRepository {
+class MyStringHiveDataSource implements MyStringLocalDataSource {
   static const String _key = 'my_string_key';
   static bool _isInitialized = false;
   static Box<String>? _box;
