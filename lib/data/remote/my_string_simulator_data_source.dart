@@ -5,17 +5,14 @@ import 'my_string_remote_data_source.dart';
 
 /// Data Source for fetching data from the backend server using http.
 /// Supports switching between real server and mock data.
-class MyStringHttpDataSource implements MyStringRemoteDataSource {
+class MyStringSimulatorDataSource implements MyStringRemoteDataSource {
   /// Fetches data from the server or returns mock data.
   /// If fetching fails, throws `MyStringException`.
   @override
   Future<MyStringEntity> getMyString() async {
-    try {
-      String content = await MyStringHttpApi().fetchContent();
-      return MyStringEntity('MyStringHttpDataSource: Server String: $content');
-    } catch (e) {
-      throw MyStringException('MyStringHttpDataSource: Server fetch failed: $e');
-    }
+      await Future.delayed(Duration(seconds: 2)); // Simulate network delay.
+      return MyStringEntity('MyStringSimulatorDataSource: Mocked Server '
+          'String: ${DateTime.now()}');
   }
 
   @override
