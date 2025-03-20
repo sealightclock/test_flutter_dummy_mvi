@@ -25,8 +25,8 @@ class MyStringHomeScreenState extends State<MyStringHomeScreen> {
   void initState() {
     super.initState();
 
-    final localDataSource = createLocalDataSource(storeType);
-    final remoteDataSource = createRemoteDataSource(serverType);
+    final localDataSource = createLocalDataSource(storeTypeSelected);
+    final remoteDataSource = createRemoteDataSource(serverTypeSelected);
 
     final repository = MyStringRepositoryImpl(
       localDataSource: localDataSource,
@@ -65,10 +65,13 @@ class MyStringHomeScreenState extends State<MyStringHomeScreen> {
           child: _isDataLoaded
               ? Column(
             children: [
+              Text('$storeTypeSelected - $serverTypeSelected'),
+
               TextField(
                 controller: _controller,
                 decoration: const InputDecoration(labelText: 'Enter value'),
               ),
+
               ElevatedButton(
                 onPressed: () {
                   setState(() {
@@ -79,6 +82,7 @@ class MyStringHomeScreenState extends State<MyStringHomeScreen> {
                 },
                 child: const Text('Update from User'),
               ),
+
               ElevatedButton(
                 onPressed: () {
                   setState(() {
@@ -91,8 +95,11 @@ class MyStringHomeScreenState extends State<MyStringHomeScreen> {
                     ? const CircularProgressIndicator()
                     : const Text('Update from Server'),
               ),
+
               const SizedBox(height: 20),
-              Text('Current Value: ${viewModel.myString}', style: const TextStyle(fontSize: 18)),
+
+              Text('Current Value:\n${viewModel.myString}', style: const
+              TextStyle(fontSize: 18)),
             ],
           )
               : const Center(child: CircularProgressIndicator()), // Show loading only initially

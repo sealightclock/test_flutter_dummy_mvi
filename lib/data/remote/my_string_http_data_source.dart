@@ -14,13 +14,13 @@ class MyStringHttpDataSource implements MyStringRemoteDataSource {
   Future<MyStringEntity> getMyString() async {
     if (useMock) {
       await Future.delayed(Duration(seconds: 2)); // Simulate network delay.
-      return MyStringEntity("MyStringHttpDataSource: Mocked Server String: ${DateTime
-          .now()}");
+      return MyStringEntity('MyStringHttpDataSource: Mocked Server String: ${DateTime
+          .now()}');
     }
 
     try {
       String content = await MyStringHttpApi().fetchContent();
-      return MyStringEntity("MyStringHttpDataSource: Real Server String: $content");
+      return MyStringEntity('MyStringHttpDataSource: Real Server String: $content');
     } catch (e) {
       throw MyStringException('MyStringHttpDataSource: Server fetch failed: $e');
     }

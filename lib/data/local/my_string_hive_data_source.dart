@@ -23,7 +23,7 @@ class MyStringHiveDataSource implements MyStringLocalDataSource {
   @override
   Future<MyStringEntity> getMyString() async {
     await _initialize(); // Ensure Hive is ready
-    var value = _box?.get(_key, defaultValue: "Default Value from Hive") ?? "Default Value from Hive";
+    var value = _box?.get(_key, defaultValue: 'Default Value from Hive') ?? "Default Value from Hive";
     return MyStringEntity(value);
   }
 

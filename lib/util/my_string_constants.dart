@@ -1,1 +1,1 @@
-const String hiveBoxName = "my_string_box";
+const String hiveBoxName = 'my_string_box';

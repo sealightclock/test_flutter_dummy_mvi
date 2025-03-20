@@ -17,13 +17,13 @@ class MyStringDioDataSource implements MyStringRemoteDataSource {
   Future<MyStringEntity> getMyString() async {
     if (useMock) {
       await Future.delayed(Duration(seconds: 2)); // Simulate network delay.
-      return MyStringEntity("MyStringDioDataSource: Mocked Server String: ${DateTime
-          .now()}");
+      return MyStringEntity('MyStringDioDataSource: Mocked Server String: ${DateTime
+          .now()}');
     }
 
     try {
       String content = await MyStringDioApi().fetchContent();
-      return MyStringEntity("MyStringDioDataSource: Real Server String: $content");
+      return MyStringEntity('MyStringDioDataSource: Real Server String: $content');
     } catch (e) {
       throw MyStringException('MyStringDioDataSource: Server fetch failed: $e');
     }

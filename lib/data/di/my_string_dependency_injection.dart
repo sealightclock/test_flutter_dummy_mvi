@@ -29,5 +29,5 @@ MyStringRemoteDataSource createRemoteDataSource(RemoteServer serverType) {
 }
 
 // !!! TODO: Change these values if needed:
-final storeType = LocalStore.hive;
-final serverType = RemoteServer.dio;
+final storeTypeSelected = LocalStore.hive;
+final serverTypeSelected = RemoteServer.http;
