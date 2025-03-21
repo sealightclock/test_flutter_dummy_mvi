@@ -7,6 +7,11 @@ import '../remote/my_string_dio_data_source.dart';
 import '../remote/my_string_http_data_source.dart';
 import '../remote/my_string_simulator_data_source.dart';
 
+/// Code for manual dependency injection is included here.
+
+/// ============================================================================
+/// Local Store
+
 enum LocalStore { sharedPrefs, hive }
 
 MyStringLocalDataSource createLocalDataSource(LocalStore storeType) {
@@ -17,6 +22,9 @@ MyStringLocalDataSource createLocalDataSource(LocalStore storeType) {
       return MyStringHiveDataSource();
   }
 }
+
+/// ============================================================================
+/// Remote Server
 
 enum RemoteServer { simulator, dio, http }
 
@@ -31,6 +39,9 @@ MyStringRemoteDataSource createRemoteDataSource(RemoteServer serverType) {
   }
 }
 
-// !!! TODO: Change these values if needed:
+/// ============================================================================
+/// TODO: Change these values if needed.
+/// There may be a better way.
+
 final storeTypeSelected = LocalStore.hive;
 final serverTypeSelected = RemoteServer.http;

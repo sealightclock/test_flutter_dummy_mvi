@@ -45,11 +45,11 @@ class MyStringHomeScreenState extends State<MyStringHomeScreen> {
 
     _controller = TextEditingController();
 
-    // Ensure UI updates properly after data loads
+    /// Ensure UI updates properly after data loads
     viewModel.loadInitialValue().then((_) {
       setState(() {
         _isDataLoaded = true;
-        // Clear controller text for immediate use:
+        /// Clear controller text for immediate use:
         _controller.clear();
       });
     });
@@ -76,7 +76,7 @@ class MyStringHomeScreenState extends State<MyStringHomeScreen> {
                 onPressed: () {
                   setState(() {
                     viewModel.handleIntent(UpdateFromUserIntent(_controller.text));
-                    // Clear controller text for next use:
+                    /// Clear controller text for next use:
                     _controller.clear();
                   });
                 },

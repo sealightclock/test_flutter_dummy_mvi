@@ -6,10 +6,9 @@ import '../../util/my_string_exception.dart';
 import 'my_string_dio_api.dart';
 import 'my_string_remote_data_source.dart';
 
-/// Data Source for fetching data from the backend server using dio.
-/// Supports switching between real server and mock data.
+/// Data Source handler for fetching data from the backend server using dio.
 class MyStringDioDataSource implements MyStringRemoteDataSource {
-  /// Fetches data from the server or returns mock data.
+  /// Fetches data from the server.
   /// If fetching fails, throws `MyStringException`.
   @override
   Future<MyStringEntity> getMyString() async {

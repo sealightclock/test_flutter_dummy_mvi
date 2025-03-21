@@ -1,12 +1,16 @@
 import 'package:hive_flutter/adapters.dart';
 import 'package:test_flutter_dummy_mvi/domain/entity/my_string_entity.dart';
-import 'package:test_flutter_dummy_mvi/util/my_string_constants.dart';
 
 import 'my_string_local_data_source.dart';
 
-/// Repository to handle local data persistence using Hive.
+/// Data source handler to handle local data persistence using Hive.
 class MyStringHiveDataSource implements MyStringLocalDataSource {
-  static const String _key = 'my_string_key';
+  /// Box
+  static const String hiveBoxName = 'my_string_hive_box';
+  /// Key
+  static const String myStringKey = 'my_string_key';
+
+  /// Initialization:
   static bool _isInitialized = false;
   static Box<String>? _box;
 
@@ -23,7 +27,7 @@ class MyStringHiveDataSource implements MyStringLocalDataSource {
   @override
   Future<MyStringEntity> getMyString() async {
     await _initialize(); // Ensure Hive is ready
-    var value = _box?.get(_key, defaultValue: 'Default Value from Hive') ?? "Default Value from Hive";
+    var value = _box?.get(myStringKey, defaultValue: 'Default Value from Hive') ?? "Default Value from Hive";
     return MyStringEntity(value);
   }
 
@@ -31,6 +35,6 @@ class MyStringHiveDataSource implements MyStringLocalDataSource {
   @override
   Future<void> storeMyString(MyStringEntity value) async {
     await _initialize(); // Ensure Hive is ready
-    await _box?.put(_key, value.value);
+    await _box?.put(myStringKey, value.value);
   }
 }

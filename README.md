@@ -20,7 +20,7 @@ This Flutter app uses the following specialized technologies:
 - Dio / HTTP: for making HTTP requests
 
 ## UI/UX
-The UI should be intuitive. MyString can be modified by:
+The UI should be intuitive. 'MyString' can be modified by:
 - the user input
 - the backend server
 - the local storage
@@ -28,27 +28,27 @@ The UI should be intuitive. MyString can be modified by:
 ## Source file structure
 The file structure is as follows:
 
--- presentation/
+### -- **presentation**/
 
----- view/
+---- **view**/
 
 ------ my_string_home_screen.dart
 
----- intent/ 
+---- **intent**/ 
 
 ------ my_string_intent.dart
 
----- viewmodel/
+---- **viewmodel**/
 
 ------ my_string_viewmodel.dart
 
--- domain/ 
+### -- ***domain***/ 
 
----- entity/
+---- **entity**/
 
 ------ my_string_entity.dart
 
----- usecase/
+---- **usecase**/
 
 ------ local/
 
@@ -60,9 +60,9 @@ The file structure is as follows:
 
 -------- get_my_string_from_remote_use_case.dart
 
--- data/
+### -- ***data***/
 
----- repository/
+---- **repository**/
 
 ------ my_string_repository.dart
 
@@ -90,15 +90,27 @@ The file structure is as follows:
 
 ------ my_string_http_data_source.dart
 
----- di/
+---- **di**/
 
 ------ my_string_dependency_injection.dart
+
+(together with some additional files/directories that are not specific to the MVI architecture)
 
 which reflects the chosen design pattern MVI.
 
 ## Testing
+This Flutter app needs to be tested on both Android and iOS devices with the following 
+combinations of configurations:
 
-This Flutter app has been tested on an Android device.
+(Hive, SharedPreferences) x
 
-This Flutter app will need to be tested on an iOS device.
+(Http, Dio, Simulator) x
+
+('Update from User', 'Update from Server') x
+
+(Screen rotation, App relaunch, App upgrade, App removal then reinstall)
+
+It has been tested on Android devices (both physical and emulator ones).
+
+It will still need to be tested on iOS devices.
 
