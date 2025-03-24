@@ -7,19 +7,22 @@ import 'package:test_flutter_dummy_mvi/presentation/intent/my_string_intent.dart
 
 /// ViewModel handling UI state.
 /// Notifies listeners when data changes.
-class MyStringViewModel with ChangeNotifier {
+class MyStringViewModel extends ChangeNotifier {
   final GetMyStringFromLocalUseCase getLocalUseCase;
   final StoreMyStringToLocalUseCase storeLocalUseCase;
   final GetMyStringFromRemoteUseCase getRemoteUseCase;
 
-  /// This is the single data to be handled by the ViewModel.
-  /// In MVI, data cannot be directly modified by outside code. They can be
-  /// modified indirectly via Intent.
-  /// So we only need "myStrong" but not "_myString".
+  // Initially, this is the only data to be handled by the ViewModel.
+  // In MVI, data cannot be directly modified by outside code. They can be
+  // modified indirectly via Intent.
+  // So we only need "myStrong" but not "_myString".
   String myString = 'Default Value from ViewModel'; // Kept for debugging
 
-  /// Flags for UI synchronization:
+  // Flags for UI synchronization.
+  // Somehow we have to add this as a state variable:
   bool isLoadingDataFromRemoteServer = false;
+
+  // Note that Dart constructor is more concise, and looks like a statement.
 
   /// Constructor:
   MyStringViewModel({
@@ -28,18 +31,23 @@ class MyStringViewModel with ChangeNotifier {
     required this.getRemoteUseCase,
   });
 
+  // This is the main difference from the MVVM Clean architecture.
+  // Instead of multiple functions that modifies state variables, we have a
+  // single function that handles multiple intents.
+
   /// Handles user intents and updates state accordingly.
   Future<void> handleIntent(MyStringIntent intent) async {
     if (intent is UpdateFromUserIntent) {
-      /// This will trigger a widget rebuild due to a mechanism ...
+      //  This will trigger a widget rebuild due to a mechanism ...
       myString = intent.newValue;
-      /// Update local storage:
+      //  Update local storage:
       await storeLocalUseCase.execute(MyStringEntity(myString));
-      /// Recommended: notify other listeners:
+      //  Recommended: always notify other listeners when data changes:
       notifyListeners();
     } else if (intent is UpdateFromServerIntent) {
       isLoadingDataFromRemoteServer = true;
       notifyListeners();
+
       try {
         MyStringEntity newValue = await getRemoteUseCase.execute();
         myString = newValue.value;
@@ -53,7 +61,7 @@ class MyStringViewModel with ChangeNotifier {
     }
   }
 
-  /// Loads the initially stored value from SharedPreferences.
+  /// Loads value from local store.
   Future<void> loadInitialValue() async {
     MyStringEntity storedEntity = await getLocalUseCase.execute();
     myString = storedEntity.value;

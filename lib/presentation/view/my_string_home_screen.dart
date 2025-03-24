@@ -49,9 +49,17 @@ class MyStringHomeScreenState extends State<MyStringHomeScreen> {
     viewModel.loadInitialValue().then((_) {
       setState(() {
         _isDataLoaded = true;
-        /// Clear controller text for immediate use:
+        // Clear controller text for immediate use:
         _controller.clear();
       });
+    });
+  }
+
+  /// Handles updating value from user input.
+  void _handleUserUpdate() {
+    setState(() {
+      viewModel.handleIntent(UpdateFromUserIntent(_controller.text));
+      _controller.clear();
     });
   }
 
@@ -70,16 +78,11 @@ class MyStringHomeScreenState extends State<MyStringHomeScreen> {
               TextField(
                 controller: _controller,
                 decoration: const InputDecoration(labelText: 'Enter value'),
+                onSubmitted: (value) => _handleUserUpdate(), // 👈 Handles Return key
               ),
 
               ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    viewModel.handleIntent(UpdateFromUserIntent(_controller.text));
-                    /// Clear controller text for next use:
-                    _controller.clear();
-                  });
-                },
+                onPressed: _handleUserUpdate,
                 child: const Text('Update from User'),
               ),
 
@@ -98,8 +101,10 @@ class MyStringHomeScreenState extends State<MyStringHomeScreen> {
 
               const SizedBox(height: 20),
 
-              Text('Current Value:\n${viewModel.myString}', style: const
-              TextStyle(fontSize: 18)),
+              Text(
+                'Current Value:\n${viewModel.myString}',
+                style: const TextStyle(fontSize: 18),
+              ),
             ],
           )
               : const Center(child: CircularProgressIndicator()), // Show loading only initially
